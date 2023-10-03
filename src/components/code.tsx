@@ -37,17 +37,18 @@ const Code = () => {
             return str.replace(/(<([^>]+)>)/ig, '');
         }*/
 
-    const getTextSegments = (element: HTMLElement) => {
+    const getTextSegments = (element: HTMLElement | ChildNode) => {
         const textSegments: TextSegment[] = [];
         Array.from(element.childNodes).forEach((node) => {
-            console.log(node)
-            console.log(node.nodeType)
             switch (node.nodeType) {
                 case Node.TEXT_NODE:
                     textSegments.push({text: node.nodeValue, node});
                     break;
 
                 case Node.ELEMENT_NODE:
+                    /*   if (node.nodeName === 'DIV') {
+                           textSegments.push({text: " <br/> ", node})
+                       }*/
                     textSegments.splice(textSegments.length, 0, ...(getTextSegments(node)));
                     break;
 
@@ -63,13 +64,14 @@ const Code = () => {
             const sel = window.getSelection();
             if (!divRef.current) return;
 
+            console.log(sel)
             console.log("Begin ===========")
             const textSegments = getTextSegments(divRef.current);
             const textContent = textSegments.map(({text}) => text).join('');
             let anchorIndex = 0;
             let focusIndex = 0;
             let currentIndex = 0;
-            //console.log(textSegments)
+            console.log(textSegments)
             textSegments.forEach(({text, node}) => {
                 if (node === sel?.anchorNode) {
                     anchorIndex = currentIndex + sel.anchorOffset;
@@ -81,7 +83,7 @@ const Code = () => {
                 currentIndex += text.length;
             });
 
-            // divRef.current.innerHTML = renderText(textContent);
+            divRef.current.innerHTML = renderText(textContent);
 
             restoreSelection(anchorIndex, focusIndex);
         }
@@ -122,9 +124,10 @@ const Code = () => {
 
             console.log(words)
             // console.log("BEGIN ============================")
-            const output = words.map((word) => {
+            let output: string[] = ["<div>"]
+            output = words.map((word) => {
                 //  console.log(word)
-                if (word === '\n') return '\n'
+                if (word === '<br/>') return '</div><div>'
                 if (Object.values(StatementWord).includes(word as StatementWord)) {
                     return `<span class="text-cyan-400">${word}</span>`;
                 } else if (isNumeric(word)) {
@@ -172,6 +175,7 @@ const Code = () => {
             <Card
                 className="h-full overflow-hidden">
                 <div contentEditable={true}
+                     spellCheck={false}
                      ref={divRef}
                      className="h-full p-6 border-0 border-opacity-100 border-orange-400">
                     {`turnleft 90 
