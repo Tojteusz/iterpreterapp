@@ -14,7 +14,7 @@ const Canvas = ({width, height}: CanvasProps) => {
     return (
         <Stage width={width}
                height={height}
-               className="bg-amber-100">
+        >
             <Layer>
                 {grid && <Dots width={width}
                                height={height}

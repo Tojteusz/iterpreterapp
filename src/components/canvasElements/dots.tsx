@@ -1,5 +1,5 @@
-import React from "react";
 import {Circle} from "react-konva";
+import {useTheme} from "@components/theme-provider.tsx";
 
 interface Dot {
     x: number;
@@ -13,6 +13,7 @@ interface DotsProps {
 }
 
 const Dots = ({width, height, dotSpacing = 20}: DotsProps) => {
+    const {theme} = useTheme()
 
     const dots: Dot[] = [];
 
@@ -30,7 +31,7 @@ const Dots = ({width, height, dotSpacing = 20}: DotsProps) => {
                 x={dot.x}
                 y={dot.y}
                 radius={0.5} // Radius of the dot
-                fill="#111" // Color of the dot
+                fill={theme === "dark" ? "#666" : "#999"} // Color of the dot
             />
         ))}
     </>

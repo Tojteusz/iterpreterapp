@@ -1,20 +1,20 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@ui/tabs";
-import {Card} from "@ui/card.tsx";
 import Settings from "@components/settings.tsx";
+import Code from "@components/code";
 
 
 const Sidebar = () => {
     return (
 
 
-        <Tabs defaultValue="settings"
+        <Tabs defaultValue="code"
               className="w-[350px] w-min-[250px] flex flex-col flex-shrink-0">
             <TabsList className={"grid w-full  grid-cols-3 "}>
                 <TabsTrigger value="code">Code</TabsTrigger>
                 <TabsTrigger value="blocks">Blocks</TabsTrigger>
                 <TabsTrigger value="settings">Settings</TabsTrigger>
             </TabsList>
-            <TabContent value="code"></TabContent>
+            <TabContent value="code"><Code/></TabContent>
             <TabContent value="blocks">Change your password here.</TabContent>
             <TabContent value="settings"><Settings/></TabContent>
         </Tabs>
@@ -30,9 +30,9 @@ const TabContent = ({children, value}: TabContentProps) => {
     return (
         <TabsContent value={value}
                      className="flex-grow">
-            <Card className="p-6 h-full">
-                {children}
-            </Card>
+
+            {children}
+
         </TabsContent>
     )
 }
