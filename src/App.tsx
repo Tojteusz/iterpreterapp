@@ -1,21 +1,41 @@
-import Sidebar from "@components/sidebar.tsx";
-import {ThemeProvider} from "@components/theme-provider.tsx";
-import useSettingsStore from "@hooks/useSettingsStore.tsx";
-import {MainSpace} from "@components/mainSpace.tsx";
+import { ThemeProvider, useTheme } from '@components/theme-provider'
+import Sidebar from '@components/sidebar/sidebar'
+import { MainSpace } from '@components/mainSpace/mainSpace'
+import CommandSelector from '@components/command/commandSelector'
+import { useEffect, useState } from 'react'
 
 function App() {
-    const {dark} = useSettingsStore();
+    const { theme } = useTheme()
+    const [run, setRun] = useState(false)
+    useEffect(() => {
+        setInterval(() => {
+            setRun(true)
+        })
+    }, [])
 
     return (
-        <div className=" w-screen h-screen p-6">
-            <ThemeProvider defaultTheme={dark}
-                           storageKey={"vite-ui-theme"}>
-                <div className="flex h-full gap-6">
-                    <Sidebar/>
-                    <MainSpace/>
-                </div>
-            </ThemeProvider>
-        </div>
+        <>
+            {run && (
+                <ThemeProvider>
+                    <div
+                        className={`${theme === 'light' ? 'bg-neutral-200' : 'bg-neutral-900'}
+                            w-screen
+                            h-screen
+                            overflow-hidden
+                            flex
+                            gap-4
+                            p-4
+                            justify-stretch
+                            items-stretch`}
+                    >
+                        <Sidebar />
+                        <MainSpace />
+                        <CommandSelector />
+                    </div>
+                </ThemeProvider>
+            )}
+            {!run && <></>}
+        </>
     )
 }
 
