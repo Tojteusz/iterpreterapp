@@ -1,5 +1,5 @@
 import { Command, StatementWord } from '@components/code/code.types'
-import { Step } from '@types/animation.types'
+import { Step } from '@/types/animation.types'
 
 const calculateXY = (baseX: number, baseY: number, forward: number, directionInDegrees: number) => {
     // Convert degrees to radians
