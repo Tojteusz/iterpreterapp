@@ -24,10 +24,9 @@ const useTurtleAnimation = () => {
         x: currStep?.x || 0,
         y: currStep?.y || 0,
         rotation: currStep?.rotation - 90 || 0,
-        duration: currStep?.duration || 300,
 
         config: {
-            duration: currStep?.duration || 300,
+            duration: currStep?.duration,
             easing: easings.easeInOutCubic,
         },
         onRest: handleAnimationEnd,
@@ -37,7 +36,6 @@ const useTurtleAnimation = () => {
         x: currStep?.x || 0,
         y: currStep?.y || 0,
         rotation: currStep?.rotation - 90 || 0,
-        duration: currStep?.duration || 0,
         fill: arrayToColor(currStep?.color || [0, 0, 0]),
 
         points: [
@@ -49,7 +47,7 @@ const useTurtleAnimation = () => {
             -(turtleSize?.height / 2 - 5) || 0,
         ],
         config: {
-            duration: currStep?.duration || 300,
+            duration: currStep?.duration,
             easing: easings.easeInOutCubic,
         },
     })

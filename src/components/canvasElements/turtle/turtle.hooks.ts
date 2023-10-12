@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import useBoundStore from '@stores/useBoundStore'
-import { codeToSteps } from '@lib/codeToStep'
 import { Step } from '@/types/animation.types'
 
 const useTurtle = () => {
@@ -39,12 +38,10 @@ const useTurtle = () => {
     ])
 
     const handleTurtlePositionChange = () => {
-        console.log('handleTurtlePositionChange', canvasSize, gridSize)
         const position = {
             x: Math.round(canvasSize.width / 2 / gridSize) * gridSize,
             y: Math.round(canvasSize.height / 2 / gridSize) * gridSize,
         }
-        console.log('position', position)
         if (code.length <= 1) {
             const step = {
                 x: position.x,
@@ -59,7 +56,6 @@ const useTurtle = () => {
             setCurrStep(step)
         }
         setTurtlePosition(position)
-        codeToSteps(code, position, direction, speed, getTheme())
     }
 
     useEffect(() => {
