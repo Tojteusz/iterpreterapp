@@ -21,35 +21,35 @@ const useTurtleAnimation = () => {
         increaseStep()
     }
     const turtleAnimation = useSpring({
-        x: currStep?.x,
-        y: currStep?.y,
-        rotation: currStep?.rotation - 90,
-        duration: currStep?.duration,
+        x: currStep?.x || 0,
+        y: currStep?.y || 0,
+        rotation: currStep?.rotation - 90 || 0,
+        duration: currStep?.duration || 300,
 
         config: {
-            duration: currStep?.duration,
+            duration: currStep?.duration || 300,
             easing: easings.easeInOutCubic,
         },
         onRest: handleAnimationEnd,
     })
 
     const turtleBGAnimation = useSpring({
-        x: currStep?.x,
-        y: currStep?.y,
-        rotation: currStep?.rotation - 90,
-        duration: currStep?.duration,
-        fill: arrayToColor(currStep?.color),
+        x: currStep?.x || 0,
+        y: currStep?.y || 0,
+        rotation: currStep?.rotation - 90 || 0,
+        duration: currStep?.duration || 0,
+        fill: arrayToColor(currStep?.color || [0, 0, 0]),
 
         points: [
             0,
-            turtleSize.height / 2,
-            currStep?.width / 2,
-            -(turtleSize.height / 2),
-            -(currStep?.width / 2),
-            -(turtleSize.height / 2),
+            turtleSize?.height / 2 - 5 || 0,
+            currStep?.width / 2 || 0,
+            -(turtleSize?.height / 2 - 5) || 0,
+            -(currStep?.width / 2) || 0,
+            -(turtleSize?.height / 2 - 5) || 0,
         ],
         config: {
-            duration: currStep?.duration,
+            duration: currStep?.duration || 300,
             easing: easings.easeInOutCubic,
         },
     })

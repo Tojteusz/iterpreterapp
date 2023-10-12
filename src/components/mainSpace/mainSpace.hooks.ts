@@ -2,13 +2,7 @@ import useBoundStore from '@stores/useBoundStore'
 import { useEffect, useRef } from 'react'
 
 const useMainSpace = () => {
-    const { gridSize, setCanvasSize, trails, steps, currStep } = useBoundStore([
-        'gridSize',
-        'setCanvasSize',
-        'trails',
-        'steps',
-        'currStep',
-    ])
+    const { gridSize, setCanvasSize } = useBoundStore(['gridSize', 'setCanvasSize'])
     const elementRef = useRef(null)
 
     useEffect(() => {
@@ -34,7 +28,7 @@ const useMainSpace = () => {
         }
     }, [])
 
-    return { elementRef, trails, steps, currStep }
+    return { elementRef }
 }
 
 export default useMainSpace

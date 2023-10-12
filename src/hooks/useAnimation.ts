@@ -1,6 +1,7 @@
 import useBoundStore from '@stores/useBoundStore'
 import { useEffect } from 'react'
 import arrayToColor from '@lib/arrayToColor'
+import { codeToSteps } from '@lib/codeToStep'
 
 const useAnimation = () => {
     const {
@@ -21,6 +22,8 @@ const useAnimation = () => {
         stopAnimation,
         replayAnimation,
         isAnimating,
+        setSteps,
+        gridSize,
     } = useBoundStore([
         'isAnimating',
         'step',
@@ -41,6 +44,8 @@ const useAnimation = () => {
         'stopAnimation',
         'isAnimating',
         'replayAnimation',
+        'setSteps',
+        'gridSize',
     ])
     const animate = false
 
@@ -97,6 +102,10 @@ const useAnimation = () => {
             else stopAnimation()
         }
     }, [code])
+
+    useEffect(() => {
+        setSteps(codeToSteps(code, turtlePosition, direction, speed, getTheme()))
+    }, [speed, direction, gridSize, getTheme()])
 
     return { animate }
 }
